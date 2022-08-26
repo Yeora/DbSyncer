@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+$local   = __DIR__ . '/../../../vendor/autoload.php';
+$package = __DIR__ . '/../../../autoload.php';
+
+if (file_exists($local)) {
+    require_once $local;
+} else {
+    require_once $package;
+}
+
+use Yeora\Command\DbSyncer;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+// ... register commands
+$application->add(new DbSyncer());
+
+$application->run();
