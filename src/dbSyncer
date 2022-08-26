@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-$local   = __DIR__ . '/../../../vendor/autoload.php';
+$local   = __DIR__ . '/../vendor/autoload.php';
 $package = __DIR__ . '/../../../autoload.php';
 
 if (file_exists($local)) {
@@ -15,7 +15,6 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-// ... register commands
 $application->add(new DbSyncer());
 
 $application->run();
