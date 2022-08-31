@@ -31,7 +31,7 @@ class DumpHelper
             $dumpSettings = $config->getConfig();
 
             $dump = new Mysqldump(
-                sprintf('mysql:host=%s;dbname=%s', $syncFrom->getHostname(), $syncFrom->getDatabase()),
+                sprintf('mysql:host=%s;dbname=%s;port=%s', $syncFrom->getHostname(), $syncFrom->getDatabase(),$syncFrom->getPort()),
                 $syncFrom->getUsername() ?? '',
                 $syncFrom->getPassword() ?? '',
                 $dumpSettings

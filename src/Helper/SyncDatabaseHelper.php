@@ -34,7 +34,8 @@ class SyncDatabaseHelper
                 $progressBar->setMessage('Syncing database ...');
 
                 $dbh = new PDO(
-                    'mysql:host=' . $syncTo->getHostname() . ';dbname=' . $syncTo->getDatabase(),
+                    'mysql:host=' . $syncTo->getHostname() . ';port=' . $syncTo->getPort(
+                    ) . ';dbname=' . $syncTo->getDatabase(),
                     $syncTo->getUsername(),
                     $syncTo->getPassword()
                 );
