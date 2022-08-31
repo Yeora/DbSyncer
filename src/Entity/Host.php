@@ -2,7 +2,8 @@
 
 namespace Yeora\Entity;
 
-use http\Exception;
+use Symfony\Component\Console\Question\Question;
+use Yeora\Helper\AskHelper;
 
 abstract class Host
 {
@@ -11,6 +12,8 @@ abstract class Host
     public ?string $username = null;
     public ?string $password = null;
     public ?string $database = null;
+    protected ?string $type = 'Host';
+
     /**
      * @var mixed[]|null
      */
@@ -34,10 +37,10 @@ abstract class Host
      */
     public function __construct(array $data = [])
     {
-        $tables = $data['tables'] ?? [];
+        $tables     = $data['tables'] ?? [];
         $conditions = $data['conditions'] ?? [];
-        $limits = $data['limits'] ?? [];
-        $config = $data['config'] ?? [];
+        $limits     = $data['limits'] ?? [];
+        $config     = $data['config'] ?? [];
 
         foreach ($data['credentials'] as $key => $val) {
             $key = 'set' . ucfirst($key);
@@ -50,6 +53,44 @@ abstract class Host
         $this->setConditions($conditions);
         $this->setLimits($limits);
         $this->setConfig($config);
+    }
+
+
+    public function checkMissingHostCredentials(): void
+    {
+        $eol = PHP_EOL;
+
+        if ( ! $this->getUsername()) {
+            $question = new Question(
+                sprintf(
+                    PHP_EOL . '<comment>Please enter the USERNAME for your %s Host (Host=%s Database=%s): </comment>',
+                    $this->type,
+                    $this->getHostname(),
+                    $this->getDatabase()
+                )
+            );
+            $question->setHidden(false);
+            $question->setHiddenFallback(false);
+            $username = AskHelper::ask($question);
+            $this->setUsername(($username));
+            $eol = null;
+        }
+
+        if ( ! $this->getPassword()) {
+            $question = new Question(
+                sprintf(
+                    $eol . '<comment>Please enter the PASSWORD for your %s Host (Host=%s Database=%s User=%s): </comment>',
+                    $this->type,
+                    $this->getHostname(),
+                    $this->getDatabase(),
+                    $this->getUsername()
+                )
+            );
+            $question->setHidden(true);
+            $question->setHiddenFallback(false);
+            $password = AskHelper::ask($question);
+            $this->setPassword(($password));
+        }
     }
 
     /**
