@@ -65,7 +65,6 @@ class SyncDatabaseHelper
                         if (substr(trim($line), -1, 1) === ';') {
                             // Perform the query
                             $dbh->query($templine);
-//                        $progressBar->setMessage('Task is in progress...');
                             $progressBar->advance();
                             // Reset temp variable to empty
                             $templine = '';
