@@ -73,12 +73,13 @@ class ConfigHelper
     {
         if ($config && file_exists($config)) {
             $mimeType = mime_content_type($config);
+
             switch ($mimeType) {
                 case 'text/plain':
-                    $configArray = self::getJsonConfig($config);
+                    $configArray = self::getYamlConfig($config);
                     break;
                 case 'application/json':
-                    $configArray = self::getYamlConfig($config);
+                    $configArray = self::getJsonConfig($config);
                     break;
                 default:
                     throw new RuntimeException('Please provide a valid config file');
