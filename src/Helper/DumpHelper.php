@@ -31,7 +31,12 @@ class DumpHelper
             $dumpSettings = $config->getConfig();
 
             $dump = new Mysqldump(
-                sprintf('mysql:host=%s;dbname=%s;port=%s', $syncFrom->getHostname(), $syncFrom->getDatabase(),$syncFrom->getPort()),
+                sprintf(
+                    'mysql:host=%s;dbname=%s;port=%s',
+                    $syncFrom->getHostname(),
+                    $syncFrom->getDatabase(),
+                    $syncFrom->getPort()
+                ),
                 $syncFrom->getUsername() ?? '',
                 $syncFrom->getPassword() ?? '',
                 $dumpSettings
@@ -48,11 +53,22 @@ class DumpHelper
                             foreach ($operation as $operationName => $values) {
                                 if ($operationName === 'replace') {
                                     foreach ($values as $replaceValue) {
-                                        $replacedValue    = str_replace(
-                                            (string)$replaceValue['oldValue'],
-                                            (string)$replaceValue['value'],
-                                            (string)$row[$columnName]
-                                        );
+                                        $len      = strlen($replaceValue['oldValue']);
+                                        $oldValue = $replaceValue['oldValue'];
+                                        if ($oldValue[0] === '/' &&
+                                            $oldValue[$len - 1] === '/') {
+                                            $replacedValue = preg_replace(
+                                                $oldValue,
+                                                (string)$replaceValue['value'],
+                                                (string)$row[$columnName]
+                                            );
+                                        } else {
+                                            $replacedValue = str_replace(
+                                                (string)$replaceValue['oldValue'],
+                                                (string)$replaceValue['value'],
+                                                (string)$row[$columnName]
+                                            );
+                                        }
                                         $row[$columnName] = $replacedValue;
                                     }
                                 }
