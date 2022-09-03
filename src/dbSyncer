@@ -12,9 +12,11 @@ if (file_exists($local)) {
 
 use Yeora\Command\DbSyncer;
 use Symfony\Component\Console\Application;
+use Yeora\Command\DefaultConfig;
 
 $application = new Application();
 
 $application->add(new DbSyncer());
+$application->add(new DefaultConfig());
 
 $application->run();

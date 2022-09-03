@@ -40,7 +40,7 @@ class DbSyncer extends Command
     protected function configure(): void
     {
         $this->setName('sync');
-        $this->setDescription('Syncs two Dbs');
+        $this->setDescription('Syncs Dbs');
         $this->addOption('config', null, InputOption::VALUE_REQUIRED, 'Config file');
     }
 
