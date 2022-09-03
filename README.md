@@ -1,4 +1,5 @@
-#
+## Other languages
+- [German Readme](https://github.com/Yeora/DbSyncer/blob/main/README_DE.md)
 
 ## Brief description
 
