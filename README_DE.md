@@ -1,49 +1,46 @@
 #
 
-## Brief description
+## Kurzbeschreibung
 
-DbSyncer is a tool that is supposed to facilitate the synchronization between databases.
-As middleware DbSyncer uses the package ifsnop/mysqldump-php.
+DbSyncer ist ein Tool, dass die Synchronisation zwischen Datenbanken erleichtern soll.
+Als Middleware greift DbSyncer auf das Package ifsnop/mysqldump-php zurück.
 
-DbSyncer offers the possibility to perform a 1-to-1 synchronization with database schema and database
-as well as a synchronization which is configurable on table and column level.
+DbSyncer bietet sowohl die Möglichkeit an, eine 1zu1 Sychronisation mit Datenbankschema und Datenbestand
+vorzunehmen, als auch eine Sychronisation die auf Tabellen und Spaltenebene konfigurierbar ist.
 
-With DbSyncer, for example, the production database can be transferred to a local development database, without the need
-for further
-manual adjustments in the data are necessary. For example:
+Mit DbSyncer lässt sich z. B. die Produktivdatenbank in eine lokale Entwicklungsdatenbank überführen, ohne das weitere
+händische Anpassungen in den Daten nötig sind. So können z. B.:
 
-- Sensitive customer data can be masked or otherwise manipulated in advance.
-- Overwrite or replace configurations with fixed values so that they fit the target environment.
-  fit.
-- Set limits at table level so that only a limited amount of data is selected.
-- Set conditions on table level so that only certain data is selected.
+- Sensible Kundendaten im Vorfeld maskiert oder anders manipuliert werden.
+- Konfigurationen mit fest hinterlegten Werten überschrieben oder ersetzt werden, sodass diese auf die Zielumgebung
+  passen.
+- Auf Tabellenebene Limits gesetzt werden, sodass nur eine begrenze Anzahl an Daten selektiert werden.
+- Auf Tabellenebene Bedingungen setzen, sodass nur bestimmte Daten selektiert werden.
 - ...
 
-Translated with www.DeepL.com/Translator (free version)
-
-## Requirements
+## Anforderungen
 
 - PHP >= 7.4.0
 - MySQL >= 4.1.0
 - [PDO](https://secure.php.net/pdo)
 
-## Installation & Setup (Quickstart)
+## Installation & Einrichtung (Quickstart)
 
-The installation of DbSyncer is done via Composer using:
+Die Installation von DbSyncer erfolgt via Composer mittels:
 
 ```console
 composer require yeora/db-syncer --dev
 ```
 
-Now a configuration file must be created from which, among other things, the access data is taken.
-For a simple standard configuration file the following command can be used:
+Nun muss eine Konfigurationsdatei angelegt werden aus der u. a. die Zugangsdaten entnommen werden.
+Für eine einfache Standardkonfigurationsdatei kann folgender Befehl verwendet werden:
 
 ```console
 vendor/bin/dbSyncer init
 ```
 
-DbSyncer then creates a DbSyncer.yaml in the project root directory.
-configuration file which looks like the following:
+Daraufhin erzeugt DbSyncer im Projekthauptverzeichnis eine DbSyncer.yaml
+Konfigurationsdatei, die wie folgt aussieht:
 
 ```yaml
 ---
@@ -63,34 +60,36 @@ syncTos:
       database: YOUR_DB_DATABASENAME
 ```
 
-In this simple case only a syncFrom and a syncTo are preconfigured.
-A syncFrom contains all necessary information of a database FROM which synchronization is to be performed.
-A syncTo contains all necessary information of a database TO which synchronization is to be performed.
-Any number of syncFroms and syncTos can be configured.
+In diesem einfachen Fall sind lediglich ein syncFrom und ein syncTo vorkonfiguriert.
+Ein syncFrom enthält alle notwendigen Informationen einer Datenbank VON der synchronisiert werden soll.
+Ein syncTo enthält alle notwendigen Informationen einer Datenbank ZU der synchronisiert werden soll.
+Es lassen sich beliebig viele syncFroms und syncTos konfigurieren.
 
-The next step is to enter the access data. The key values password and username
-can also be removed completely from the configuration file. The credentials are then interactively when starting the
-synchronizer.
+Als nächster Schritt müssen die Zugangsdaten eingetragen werden. Die Schlüsselwerte password und username
+können auch gänzlich aus der Konfigurationsdatei entfernt werden. Die Zugangsdaten werden dann interaktiv
+beim Starten des Synchronisierers abgefragt.
 
-After the access data have been entered or the key values have been removed, the actual synchronization process can be
-started. the actual synchronization process can be started.
-To do this, the following command must be executed:
+Nachdem die Zugangsdaten eingetragen wurden, oder die Schlüsselwerte entfernt wurden, kann
+der eigentliche Synchronisierungsprozess gestartet werden.
+Dazu muss folgender Befehl ausgeführt werden:
 
 ```console
 vendor/bin/dbSyncer sync
 ```
 
-If only one syncFrom and one syncTo are configured and the access data have been specified,
-the synchronization takes place automatically without further user action.
+Sofern nur ein syncFrom und ein syncTo konfiguriert sind und die Zugangsdaten mit angegeben worden sind,
+findet die Synchronisierung automatisch ohne weitere Benutzeraktion statt.
 
-If multiple syncFroms are configured, you will be asked to select one interactively.
-If more than one syncTos are configured, you will be asked to select one or more interactively.
+Sollten mehrere syncFroms konfiguriert sein, so wird man interaktiv aufgefordert einen auszuwählen.
+Sollten mehrere syncTos konfiguriert sein, so wird man interaktiv aufgefordert einen oder mehrere auszuwählen.
 
-This completes the basic setup of a complete synchronization of a database A to a database B is completed.
+Damit ist die Grundeinrichtung einer vollständigen Synchronisation einer Datenbank A zu einer Datenbank B
+abgeschlossen.
 
-## Complete configuration with comments
+## Vollständige Konfiguration mit Kommentaren
 
-The following is a configuration with all configuration options is given.
+Im Folgenden ist eine Konfiguration mit allen Konfigurationsmöglichkeiten
+angegeben.
 
 ```yaml
 ---
