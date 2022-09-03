@@ -147,7 +147,7 @@ syncTos: # One or as many as desired syncTo hosts
   - credentials:
       hostname: DATABASE_HOSTNAME
       port: YOUR_DATABASE_PORT
-      username: YOUR_DATABASE_USER
-      password: YOUR_DATABASE_PASSWORD
+      username: YOUR_DATABASE_USER  # Optional field. But must be entered interactively if omitted.
+      password: YOUR_DATABASE_PASSWORD  # Optional field. But must be entered interactively if omitted.
       database: YOUR_DATABASE_NAME
 ```
