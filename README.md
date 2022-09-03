@@ -14,7 +14,6 @@ manual adjustments in the data are necessary. For example:
 
 - Sensitive customer data can be masked or otherwise manipulated in advance.
 - Overwrite or replace configurations with fixed values so that they fit the target environment.
-  fit.
 - Set limits at table level so that only a limited amount of data is selected.
 - Set conditions on table level so that only certain data is selected.
 - ...
