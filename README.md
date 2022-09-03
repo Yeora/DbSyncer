@@ -19,7 +19,6 @@ manual adjustments in the data are necessary. For example:
 - Set conditions on table level so that only certain data is selected.
 - ...
 
-Translated with www.DeepL.com/Translator (free version)
 
 ## Requirements
 
